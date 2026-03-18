@@ -113,7 +113,15 @@ function submitContactForm(event){
     }
 
     if (isValid) {
-      showAlert("Success!", "Message has been sent!", "success");
+        emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', form)
+        .then(() => {
+            showAlert("Success!", "Message has been sent!", "success");
+            form.reset(); // clear form fields
+        })
+        .catch((err) => {
+            console.error(err);
+            showAlert("Error!", "Failed to send message.", "error");
+        });
     }
 }
 
