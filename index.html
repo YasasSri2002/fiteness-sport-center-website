@@ -369,14 +369,17 @@
                 <div class="grid gap-2">
                     <label for="name">Name</label>
                     <input type="text" name="name" class="bg-white border rounded-lg h-10 px-2"/>
+                    <p id="nameError" class="text-red-500 text-sm md:text-md"></p>
                 </div>
                 <div class="grid gap-2">
                     <label for="email">Email</label>
                     <input type="email" name="email" class="bg-white border rounded-lg h-10 px-2"/>
+                    <p id="emailError" class="text-red-500 text-sm md:text-md"></p>
                 </div>
                 <div class="grid gap-2">
                     <label for="message">Message</label>
                     <textarea name="message" id="" cols="30" rows="5" class="bg-white border rounded-lg px-2 pt-1 resize-none" ></textarea>
+                    <p id="messageError" class="text-red-500 text-sm md:text-md"></p>
                 </div>
                 
                     <button type="submit" class="flex items-center active:scale-95 justify-center bg-[#D5A310] gap-2 rounded-lg h-10">

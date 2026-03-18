@@ -75,8 +75,46 @@ function closeAlert() {
   overlay.classList.remove("active");
 }
 
+
+function validateEmail(email) {
+  const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return regex.test(email);
+}
+
+function showErrorById(id, message) {
+  document.getElementById(id).innerText = message;
+}
+
+function clearErrors() {
+  document.getElementById("nameError").innerText = "";
+  document.getElementById("emailError").innerText = "";
+}
+
 function submitContactForm(event){
     event.preventDefault();
-    showAlert("Success!","Message has been send!", "success");
+
+    let isValid = true;
+
+    clearErrors();
+
+    const form = event.target;
+
+    const name = form.name.value.trim();
+    const email = form.email.value.trim();
+
+    if (name === "") {
+      showErrorById("nameError", "Username is required");
+      isValid = false;
+    }
+
+    if (!validateEmail(email)) {
+      showErrorById("emailError", "Invalid email");
+      isValid = false;
+    }
+
+    if (isValid) {
+      showAlert("Success!", "Message has been sent!", "success");
+    }
 }
+
 
