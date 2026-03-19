@@ -1,4 +1,8 @@
-import { EMAILJS_CONFIG } from './config.js';
+EMAILJS_CONFIG = {
+    SERVICE_ID: 'YOUR_SERVICE_ID',
+    TEMPLATE_ID: 'YOUR_TEMPLATE_ID',
+    PUBLIC_KEY: 'YOUR_PUBLIC_KEY'
+};
 
 document.addEventListener("DOMContentLoaded", () => {
     const mobileNavBar = document.getElementById('mobileNavBar');
@@ -79,46 +83,42 @@ function closeAlert() {
 
 
 function validateEmail(email) {
-  const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return regex.test(email);
-}
-
-function showErrorById(id, message) {
-  document.getElementById(id).innerText = message;
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
 function clearErrors() {
-  document.getElementById("nameError").innerText = "";
-  document.getElementById("emailError").innerText = "";
+    document.querySelectorAll('[id$="Error"]').forEach(el => el.textContent = "");
 }
 
-function submitContactForm(event){
+function showErrorById(id, message) {
+    const el = document.getElementById(id);
+    if (el) el.textContent = message;
+}
+
+function submitContactForm(event) {
     event.preventDefault();
-
     let isValid = true;
-
     clearErrors();
 
     const form = event.target;
-
     const name = form.name.value.trim();
     const email = form.email.value.trim();
 
     if (name === "") {
-      showErrorById("nameError", "Username is required");
-      isValid = false;
+        showErrorById("nameError", "Name is required");
+        isValid = false;
     }
 
     if (!validateEmail(email)) {
-      showErrorById("emailError", "Invalid email");
-      isValid = false;
+        showErrorById("emailError", "Invalid email address");
+        isValid = false;
     }
 
     if (isValid) {
         emailjs.sendForm(EMAILJS_CONFIG.SERVICE_ID,EMAILJS_CONFIG.TEMPLATE_ID,form,EMAILJS_CONFIG.PUBLIC_KEY)
         .then(() => {
             showAlert("Success!", "Message has been sent!", "success");
-            form.reset(); // clear form fields
+            form.reset();
         })
         .catch((err) => {
             console.error(err);
