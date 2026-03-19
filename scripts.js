@@ -1,3 +1,5 @@
+import { EMAILJS_CONFIG } from './config.js';
+
 document.addEventListener("DOMContentLoaded", () => {
     const mobileNavBar = document.getElementById('mobileNavBar');
     const desktopControllerBtn = document.getElementById('desktopControllerBtn');
@@ -113,7 +115,7 @@ function submitContactForm(event){
     }
 
     if (isValid) {
-        emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', form)
+        emailjs.sendForm(EMAILJS_CONFIG.SERVICE_ID,EMAILJS_CONFIG.TEMPLATE_ID,form,EMAILJS_CONFIG.PUBLIC_KEY)
         .then(() => {
             showAlert("Success!", "Message has been sent!", "success");
             form.reset(); // clear form fields
